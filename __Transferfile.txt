@@ -1,0 +1,79 @@
+Here is the clean, final email draft, updated to explicitly state that France is the EU region where Copilot is hosted, and incorporating the security wording you requested.
+
+
+---
+
+Subject: Copilot for Power BI PoC – Region Limitation, Data Residency, and Next Steps
+
+Hi <Manager Name> and <CDO Name>,
+
+I’d like to provide an important update on our Copilot for Power BI proof of concept, specifically regarding data residency and Azure OpenAI requirements.
+
+As part of the PoC, Copilot is currently enabled only for a small, controlled group called Fabric Copilot Users (7 users: <names>). While validating configuration, I tested the Fabric tenant setting:
+
+> “Data sent to Azure OpenAI can be processed outside your capacity’s geographic region, compliance boundary, or national cloud instance.”
+
+
+
+Microsoft’s documentation linked from this setting states that:
+
+Copilot for Power BI is only deployed in two regions globally: the United States and France (the designated EU region for Copilot services).
+
+For tenants hosted outside the US or France, Copilot is disabled by default unless this cross-region data-processing setting is enabled.
+
+When I disabled this setting in our Australian-hosted tenant, Copilot for Power BI immediately stopped functioning. This behaviour aligns with Microsoft’s documented design.
+
+
+In short:
+Copilot will not work for our Australian tenant unless the setting allowing data to be processed outside Australia (to the US/France) is enabled.
+
+
+---
+
+Implications for our PoC
+
+Given that we are nearing completion:
+
+1. We should continue the PoC with the setting enabled so Copilot remains operational.
+
+
+2. Once the PoC concludes, we should reduce the Copilot access group by removing non-essential users and restricting usage to Power BI admins: <names>.
+
+
+3. We will need to notify the PoC users and Power BI admins that:
+
+Their prompts, and the grounding data used by Copilot to generate responses, may be processed in US or France.
+
+They must avoid using Copilot with sensitive or restricted datasets.
+
+
+
+
+
+---
+
+Security considerations
+
+Fabric and Power BI enforce existing security and access-control boundaries — meaning Copilot can only use data the logged-in user already has permission to access. This provides a reasonable level of assurance, and Microsoft confirms that Copilot interactions are not used to train foundation models.
+
+However, Microsoft has not yet published a dedicated Copilot-for-Power-BI security whitepaper that explicitly documents per-user isolation of prompts, retention details, or internal access controls. Therefore, we should treat the security posture as likely strong but not fully documented, and limit usage accordingly during the PoC.
+
+
+---
+
+Future region support
+
+Although Azure OpenAI is available in the Australia East region for general use, Microsoft has not announced any timeline for running Copilot for Power BI entirely within Australia. As a result, the cross-region data-processing setting will remain required until Microsoft extends Copilot’s backend to additional regions.
+
+I will continue to monitor Microsoft announcements for any updates on expanded region support.
+
+Please let me know if you’d like a shorter communication drafted for PoC users and Power BI admins, or if we should formally register this as a data-residency risk.
+
+Kind regards,
+<Your Name>
+<Your Title>
+
+
+---
+
+If you'd like, I can also prepare the PoC user advisory message or a risk register entry.
